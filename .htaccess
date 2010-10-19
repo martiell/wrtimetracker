@@ -1,0 +1,8 @@
+AddDefaultCharset utf-8
+
+php_flag magic_quotes_gpc Off
+
+php_value session.gc_maxlifetime 86400
+
+php_value session.cache_expire 1
+php_value session.cookie_lifetime 86400

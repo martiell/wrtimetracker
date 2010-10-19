@@ -1,0 +1,22 @@
+﻿<messagebundle>
+  <msg name="gadget_title">Anuko Time Tracker</msg> 
+  <msg name="project">проект</msg> 
+  <msg name="activity">задача</msg> 
+  <msg name="notes">комментарий</msg> 
+  <msg name="btstart">Старт</msg> 
+  <msg name="btstop">Стоп</msg> 
+  <msg name="btwait">Ожидаем</msg> 
+  <msg name="label_hour">ч</msg> 
+  <msg name="label_this_week">за эту неделю</msg> 
+  <msg name="label_today">за сегодня</msg> 
+  <msg name="label_help">Помощь</msg>
+  <msg name="label_total">Итог</msg>
+  <msg name="label_login">Логин</msg> 
+  <msg name="label_password">Пароль</msg>
+  <msg name="label_helpmsg">Подсказка</msg>  
+  <msg name="label_helpmsg_val">Кликните по заголовку для помощи</msg>  
+  <msg name="message1">Установите свои настройки гаджета.</msg> 
+  <msg name="message2">Ошибка в ответе сервера.</msg> 
+  <msg name="footer_link1_name">Еще от Anuko</msg> 
+  <msg name="footer_link2_name">Посетите наш сайт</msg> 
+</messagebundle>

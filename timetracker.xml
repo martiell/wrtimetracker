@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs title="Anuko Time Tracker"
+title_url="http://www.anuko.com/"
+height="145"
+width="331"
+scrolling="false"
+author="WR Consulting"
+description="Anuko Time Tracker is a simple, easy to use, open source, web-based time tracking system"
+thumbnail="http://test.wrconsulting.com/timetracker_wg.png"
+author_email="igor.melnik@mail.ru">
+<Locale messages="http://test.wrconsulting.com/gadget/ALL_ALL.xml"/>
+<Locale lang="ru" messages="http://test.wrconsulting.com/gadget/ru_ALL.xml"/>
+</ModulePrefs>
+<UserPref name="login" display_name="Login" required="true" default_value="niko@wrconsulting.com"/>
+<UserPref name="password" display_name="Password" required="true" default_value="lalala"/>
+<UserPref name="serviceURL" display_name="Service" required="true" default_value="http://test.wrconsulting.com/wginfo.php"/>
+
+<Content type="html"><![CDATA[
+<style>
+*, body {
+font-size: 9pt;
+}
+.ttBg1 {
+background: transparent url('http://test.wrconsulting.com/timetracker_bg_2.png') repeat-x;
+}
+.ttBg2 {
+background: transparent url('http://test.wrconsulting.com/timetracker_bg_1.png') no-repeat;
+}
+.ttBg3 {
+background: transparent url('http://test.wrconsulting.com/timetracker_bg_3.png') no-repeat scroll right top;
+}
+.ttContent {
+padding: 3px;
+}
+.topMessages {
+height: 41px;
+}
+.ttForm {
+padding:7px;
+height: 68px;
+}
+.ttAddInfo {
+color: #5c60b2;
+font-size: 8pt;
+height: 23px;
+}
+.ttAddInfo a {
+color: #339;
+font-size: 8pt;
+}
+.ttRecInfo {
+font-size: 9pt;
+color: #c9f937;
+text-decoration: underline;
+}
+.ttStar {
+color: red;
+font-weight: bold;
+display: inline;
+}
+select {
+width: 170px;
+}
+</style>
+
+<div class="ttBg1">
+<div class="ttBg2">
+<div class="ttBg3">
+
+<div class="ttContent">
+<div class="topMessages">
+<div id="recInfo" class="ttRecInfo" align="center">&nbsp;</div>
+<b><div id="cInfo" class="ttcInfo" align="center">&nbsp;</div></b>
+</div>
+<div class="ttForm" align="center">
+<form>
+<table>
+<tr>
+<td><b style="color:#144394"><div class="ttStar">*</div> __MSG_project__:</b></td>
+<td><select id="project" name="project" onchange="fillActivityControl(this.options[this.selectedIndex].value);doChange();"></select></td>
+</tr>
+<tr>
+<td><b style="color:#144394"><div class="ttStar">*</div> __MSG_activity__:</b></td>
+<td><select id="activity" name="activity" onchange="doChange()"></select></td>
+</tr>
+<tr>
+<td align="center" colspan="2">
+<button id="btstart" name="btstart" onclick="return doStart()" disabled="true" style="width:80px">__MSG_btstart__</button>
+</td>
+</tr>
+</table>
+</form>
+</div>
+<div class="ttAddInfo" align="center">
+<a target="_blank" href="http://www.anuko.com/">Anuko TimeTracker Site</a>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+var prefs = new _IG_Prefs();
+var elBtStart = _gel('btstart');
+var elPrj = _gel('project');
+var elAct = _gel('activity');
+var elRecInfo = _gel('recInfo');
+var elcInfo = _gel('cInfo');
+var arrActivity = [];
+var totalDaily = "";
+var totalWeek = "";
+var selProject = null;
+var selActivity = null;
+
+function doStop() {
+elBtStart.disabled = true;
+reqStop();
+return false;
+}
+
+function doStart() {
+elBtStart.disabled = true;
+reqStart();
+return false;
+}
+
+function setElementsToStart() {
+elBtStart.disabled = false;
+elBtStart.innerHTML= "__MSG_btstart__";
+elBtStart.onclick = function() {return doStart()};
+}
+
+function setElementsToStop() {
+elBtStart.disabled = false;
+elBtStart.innerHTML = "__MSG_btstop__";
+elBtStart.onclick = function() {return doStop()};
+}
+
+function fillActivityControl(prjId) {
+elAct.options.length = 0;
+for (var i=0; i<arrActivity.length;i++) {
+if ( isIn(prjId,arrActivity[i].project) || arrActivity[i].project=="")
+elAct.options[elAct.options.length] =
+new Option(
+arrActivity[i].title,
+arrActivity[i].id
+);
+}
+}
+
+function doChange() {
+if (selProject && selActivity &&
+selProject==elPrj.options[elPrj.selectedIndex].value &&
+selActivity==elAct.options[elAct.selectedIndex].value) {
+setElementsToStop();
+} else {
+setElementsToStart();
+}
+}
+
+function isIn(prjId, projects) {
+var arr = (projects ? projects.split(",") : new Array());
+for (var i=0; i<arr.length;i++) if (prjId==arr[i]) return true;
+return false;
+}
+
+function initData(response, action) {
+if (response == null || typeof(response) != "object" ||
+response.firstChild == null) {
+return false;
+}
+
+var selProjectName = "";
+var selActivityName = "";
+var irecord = response.getElementsByTagName("incompleate").item(0);
+if (irecord) {
+setElementsToStop();
+selProject = irecord.getAttribute("project");
+selActivity = irecord.getAttribute("activity");
+} else {
+setElementsToStart()
+}
+
+var record = response.getElementsByTagName("compleate").item(0);
+if (record) {
+totalDaily = record.getAttribute("daily_time");
+totalWeek = record.getAttribute("week_time");
+elcInfo.innerHTML = "__MSG_label3__ "+totalDaily+"__MSG_label4__ "+totalWeek;
+}
+
+var itemList = response.getElementsByTagName("projects").item(0).childNodes;
+elPrj.options.length = 0;
+for (var i=0; i<itemList.length; i++) {
+var node = itemList.item(i);
+if (node.nodeType==1) {
+elPrj.options[elPrj.options.length] = new Option(
+node.firstChild.nodeValue,
+node.getAttribute("id"));
+}
+}
+
+for (var i=0; i<elPrj.options.length; i++) {
+if (selProject && selProject==elPrj.options[i].value) {
+elPrj.options[i].selected = true;
+selProjectName = elPrj.options[i].text;
+}
+}
+
+itemList = response.getElementsByTagName("activities").item(0).childNodes;
+arrActivity = [];
+for (var i=0; i<itemList.length; i++) {
+var node = itemList.item(i);
+if (node.nodeType==1) {
+arrActivity.push(
+{id:node.getAttribute("id"),
+project:node.getAttribute("project"),
+title:node.firstChild.nodeValue
+});
+}
+}
+fillActivityControl(elPrj.options[elPrj.selectedIndex].value);
+
+for (var i=0; i<elAct.options.length; i++) {
+if (selActivity && selActivity==elAct.options[i].value) {
+elAct.options[i].selected = true;
+selActivityName = elAct.options[i].text;
+}
+}
+
+if (irecord) {
+elRecInfo.innerHTML = "__MSG_label1__ "+selProjectName+", "+selActivityName+",__MSG_label2__ "+irecord.getAttribute("date")+" "+irecord.getAttribute("start");
+} else {
+elRecInfo.innerHTML = " ";
+}
+
+return (irecord?1:2);
+}
+
+function t(dd) {
+return (dd.getHours()<10?"0"+dd.getHours():dd.getHours())+":"+
+(dd.getMinutes()<10?"0"+dd.getMinutes():dd.getMinutes());
+}
+
+function reqInit() {
+var url = prefs.getString("serviceURL")+'?login='+
+prefs.getString("login")+'&password='+
+prefs.getString("password")+
+'&ch='+new Date().getTime();
+_IG_FetchXmlContent(
+url, function (response) {initData(response, "startup");}
+);
+}
+
+function reqStart() {
+var dd = new Date();
+var url = prefs.getString("serviceURL")+'?login='+
+prefs.getString("login")+'&password='+
+prefs.getString("password")+'&project='+elPrj.value+'&activity='+elAct.value+
+'&start='+t(dd)+'&finish='+t(dd)+'&action=start'+
+'&date='+(dd.getMonth()+1)+'/'+dd.getDate()+'/'+dd.getYear()+'&ch='+dd.getTime();
+_IG_FetchXmlContent(
+url, function (response) {
+if (initData(response, "start")==1) {
+setElementsToStop();
+} else {
+setElementsToStart();
+}
+}
+);
+}
+
+function reqStop() {
+var dd = new Date();
+var url = prefs.getString("serviceURL")+'?login='+
+prefs.getString("login")+'&password='+
+prefs.getString("password")+'&finish='+t(dd)+
+'&action=stop&ch='+dd.getTime();
+_IG_FetchXmlContent(
+url, function (response) {
+if (initData(response, "stop")==2) {
+setElementsToStart();
+} else {
+setElementsToStop();
+}
+}
+);
+}
+
+_IG_RegisterOnloadHandler(reqInit);
+</script>
+]]></Content>
+</Module>

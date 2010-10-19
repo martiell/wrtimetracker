@@ -1,0 +1,179 @@
+<?php
+// +----------------------------------------------------------------------+
+// | Anuko Time Tracker
+// +----------------------------------------------------------------------+
+// | Copyright (c) Anuko International Ltd. (http://www.anuko.com)
+// +----------------------------------------------------------------------+
+// | LIBERAL FREEWARE LICENSE: This source code document may be used
+// | by anyone for any purpose, and freely redistributed alone or in
+// | combination with other software, provided that the license is obeyed.
+// |
+// | There are only two ways to violate the license:
+// |
+// | 1. To redistribute this code in source form, with the copyright
+// |    notice or license removed or altered. (Distributing in compiled
+// |    forms without embedded copyright notices is permitted).
+// |
+// | 2. To redistribute modified versions of this code in *any* form
+// |    that bears insufficient indications that the modifications are
+// |    not the work of the original author(s).
+// |
+// | This license applies to this document only, not any other software
+// | that it may be combined with.
+// |
+// +----------------------------------------------------------------------+
+// | Contributors:
+// | http://www.anuko.com/content/time_tracker/open_source/credits.htm
+// +----------------------------------------------------------------------+
+
+
+// Set include path for PEAR and its modules, which we include in the distribution.
+//
+set_include_path(get_include_path() . PATH_SEPARATOR . realpath(dirname(__FILE__).'/lib/pear'));
+
+
+// **** Database parameters
+//
+// parameters to connect to database
+// CHANGE THIS!
+//
+define("DSN",'mysql://root:no@localhost/wrtts');
+
+
+// **** Multiteam option
+//
+// available values are 'true' or 'false'
+// if 'true' users can create their own teams
+// if 'false' only admin can create teams
+//
+define("MULTITEAM_MODE", "true");
+
+
+// **** Application name
+// If you install time tracker into a sub-directory of your site reflect this in the APP_NAME parameter.
+// For example, for http://localhost/timetracker/ define APP_NAME as 'timetracker'.
+//
+//define("APP_NAME",'timetracker');
+//
+define("APP_NAME",'');
+
+
+// **** Parameters for Flash ZoneTick (the world clock from WR Consulting on top of pages).
+// Clocks are numbered 1 to 5. For each clock you'll probably want to specify time zone offset from UTC, daylight saving datetimes and value, and a label.
+// You may also want to specify business hours, which are displayed with a different background. All parameters are optional. If no parameters are specified
+// for the clock a GMT clock with running seconds is displayed.
+//
+// z - time zone offset in minutes from UTC.
+// dst - daylight saving begin and end datetimes. See example below.
+// bias - daylight saving value in minutes (usually 60).
+// label - clock label. Avoid using long labels because width of the clock is fixed and there is only enough space for 8 or so characters.
+// open - business hours and days of week.
+//
+// Example:
+// define("FV_ZT5","z=-480&dst=1104.0200-5110.0200&bias=60&label=Seattle");
+// 
+// z=-480 - clock is 480 minutes behind UTC.
+// dst=1104.0200-5110.0200 - daylight saving time starts on first Sunday in April at 02:00 hours and ends on last Sunday in October at 02:00 hours.
+// 		format:
+//		<begin time> - <end time>
+//		First digit - week number (1 - first, 2 - second, 5 - last).
+//		Second digit - day of week (1 - Sunday, 2 - Monday, etc.).
+//		Third and fourth digits - calendar month.
+//		For example,
+//		1104.0200 - first Sunday in April at 02:00 hours.
+//		5110.0200 - last Sunday in October at 02:00 hours.
+// bias=60 - daylight saving shift is 60 minutes.
+// label=Seattle - label for clock is Seattle.
+// open=0900-1800.23456 - business hours are Monday through Friday from 09:00 till 18:00.
+//		0900-1800.23456 - means that business hours start at 09:00 and end at 18:00 each Monday (2), Tuesday (3),
+//		Wednesday (4), Thursday (5), and Friday (6). If your business week includes Sunday (1) or Saturday (7) simply
+//		use these digits in the right part of the expression and remove not needed days of week.
+define("FV_ZT1","z=600&dst=5110.0200-5103.0300&bias=60&label=Sydney");
+define("FV_ZT2","z=540&label=Tokyo");
+define("FV_ZT3","z=0&dst=5103.0100-5110.0200&bias=60&label=London");
+define("FV_ZT4","z=-300&dst=2103.0200-1111.0200&bias=60&label=NewYork");
+define("FV_ZT5","z=-480&dst=2103.0200-1111.0200&bias=60&label=Seattle");
+
+// **** Holidays
+//
+define("SHOW_HOLIDAYS", "true");
+
+// **** Help and feedback links for main menu
+//
+define("FEEDBACK_LINK",'http://www.anuko.com/content/feedback.htm');
+define("HELP_LINK", 'http://www.anuko.com/content/time_tracker/open_source/user_guide.htm');
+
+
+// Default sender for mail
+//
+define("SENDER", '"Anuko Time Tracker" <no-reply@timetracker.anuko.com>');
+
+// Sending mode. Can be 'mail' or 'smtp'.
+// 'mail' - sending through php mail() function
+// 'smtp' - sending directly through SMTP server
+define('MAIL_MODE', 'smtp');
+define('MAIL_SMTP_HOST', 'localhost');
+define('MAIL_SMTP_DEBUG', false);
+
+
+// **** Path to CSS file
+//
+define("DEFAULT_CSS",'default.css');
+define("RTL_CSS",'rtl.css');
+
+
+// **** Date format for parameter in URL
+//
+define("SYS_DATEFORMAT", '%m/%d/%Y');
+
+// **** Date format for database (r/w)
+//
+define("DB_DATEFORMAT","%Y-%m-%d");
+
+// **** Date & time format select options
+//
+$GLOBALS['DATE_FORMAT_OPTIONS'] = array(
+  array('id' => '%Y-%m-%d', 'name' => 'Y-m-d'),
+  array('id' => '%m/%d/%Y', 'name' => 'm/d/Y'),
+  array('id' => '%d.%m.%Y', 'name' => 'd.m.Y'),
+  array('id' => '%d.%m.%Y %a', 'name' => 'd.m.Y a'),
+  array('id' => '%B %d.%m.%Y %a', 'name' => 'B d.m.Y a'),
+//  array('id' => '%c', 'name' => 'c'),
+//  array('id' => '%T', 'name' => 'T'),
+//  array('id' => '%Z', 'name' => 'Z'),
+//  array('id' => '%z', 'name' => 'z'),
+);
+define('DATE_FORMAT_DEFAULT', '%Y-%m-%d');
+$GLOBALS['TIME_FORMAT_OPTIONS'] = array(
+  array('id' => '%H:%M:%S', 'name' => 'H:M:S'),
+  array('id' => '%H:%M', 'name' => 'H:M'));
+define('TIME_FORMAT_DEFAULT', '%H:%M:%S');
+define('START_WEEK_DEFAULT', 0); // 0 - 6
+
+// **** Root file for template system
+//
+define("INDEX_TEMPLATE","index.tpl");
+
+//define("EXPORT_TIMEFORMAT", ":"); // default
+define("EXPORT_TIMEFORMAT", "."); // decimal
+
+define("CALENDAR_PROJECT_CLASS", "CalendarLinkProject"); // default.css
+
+// Authentication module (see WEB-INF/lib/auth/)
+// Possible authentication methods:
+//	db - internal database, logins and encrypted passwords are stored in time tracker database
+//	ldap - authentication against an LDAP directory such as Windows Active Directory
+define('AUTH_MODULE', 'db');
+
+// Configuration example for Windows domains with Active Directory:
+// define('AUTH_MODULE', 'ldap');
+// $GLOBALS['AUTH_MODULE_PARAMS'] = array(
+//  'dc' => '127.0.0.1',			// Domain controller IP address or name.
+//  'base_dn' => 'DC=example,DC=com',	// Base distinguished name in LDAP catalog.
+//  'default_domain' => 'example.com',	// Default domain.
+//  'member_of' => array());			// List of groups, membership in which is required for user to be authenticated.
+
+// define('AUTH_DEBUG', 0);
+// Go to http://www.anuko.com/content/time_tracker/modules/ldap_auth/index.htm for detailed instructions.
+
+?>

@@ -1,0 +1,149 @@
+/*
+// +----------------------------------------------------------------------+
+// | WR Time Tracker
+// +----------------------------------------------------------------------+
+// | Copyright (c) 2004-2006 WR Consulting (http://wrconsulting.com)
+// +----------------------------------------------------------------------+
+// | LIBERAL FREEWARE LICENSE: This source code document may be used
+// | by anyone for any purpose, and freely redistributed alone or in
+// | combination with other software, provided that the license is obeyed.
+// |
+// | There are only two ways to violate the license:
+// |
+// | 1. To redistribute this code in source form, with the copyright
+// |    notice or license removed or altered. (Distributing in compiled
+// |    forms without embedded copyright notices is permitted).
+// |
+// | 2. To redistribute modified versions of this code in *any* form
+// |    that bears insufficient indications that the modifications are
+// |    not the work of the original author(s).
+// |
+// | This license applies to this document only, not any other software
+// | that it may be combined with.
+// |
+// +----------------------------------------------------------------------+
+// | Contributors: Igor Melnik <igor.melnik@mail.ru>
+// +----------------------------------------------------------------------+
+*/
+
+a {
+	color: blue; text-decoration: none
+}
+a:visited {
+	text-decoration: none
+}
+a:hover {
+	text-decoration: underline
+}
+
+body {
+	font-size: 10pt; font-family: verdana; background-color: white
+}
+p {
+	font-size: 10pt; font-family: verdana
+}
+table {
+	font-size: 10pt; font-family: verdana
+}
+input, button {
+	font-size: 10pt; font-family: verdana
+}
+
+textarea {
+	font-size: 10pt; font-family: verdana
+}
+
+option {
+	font-size: 10pt; font-family: verdana
+}
+
+select{
+	font-size: 10pt; font-family: verdana
+}
+
+.pageTitle {
+	font-weight: bold;
+	font-size: 12pt;
+	color: Silver;
+}
+
+.systemMenu {
+	font-weight: bold;
+	color: #ffffff;
+	background-color: #000000;
+	font-size: 12pt;
+}
+
+.systemMenuInactive {
+	font-weight: bold;
+	color: #aaaaaa;
+	background-color: #000000;
+	font-size: 12pt;
+}
+
+.mainMenu {
+	color: #444444;
+	font-size: 12pt;
+}
+
+.today {
+	color: #000000;
+	background-color: #D0D0E8;
+}
+
+.tableHeader {
+	font-weight: bold;
+	color: #000000;
+	background-color: #A6CCF7;
+}
+
+.langMark {
+	color: #ffffff;
+	background-color: #74A6DE;
+	padding-top: 2px;
+	padding-right: 6px;
+	padding-bottom: 2px;
+	padding-left: 6px;
+	padding: 2px 6px 2px 6px;
+}
+
+.sectionHeader {
+	border-bottom: 1px solid Silver;
+	font-weight: bold;
+}
+
+.sectionHeader_0 {
+	font-weight: bold
+}
+
+.button {
+	background-color: #D4E5E2
+}
+
+.reportTop {
+	border-top: #cccccc 1px solid
+}
+
+.bgLiteSilver {
+	background-color: #f7f7f7
+}
+
+.textLite {
+	color: #999999
+}
+
+.combo {
+	font-size: 10pt; font-family: verdana
+}
+
+.err_msg {
+	font-weight: bold;
+	color: #FF0000;
+}
+
+.lineTopSilver{ border-top: 1px solid #CCCCCC }
+.bgLiteSilver{ background-color: #F7F7F7 }
+.lineBottomDouble{ border-bottom: 3px double #000000 }
+
+div#LoginHelloText { width:400px; }
+

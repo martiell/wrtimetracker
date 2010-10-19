@@ -1,0 +1,22 @@
+<messagebundle>
+  <msg name="gadget_title">Anuko Time Tracker</msg> 
+  <msg name="project">project</msg> 
+  <msg name="activity">activity</msg> 
+  <msg name="notes">note</msg> 
+  <msg name="btstart">Start</msg> 
+  <msg name="btstop">Stop</msg> 
+  <msg name="btwait">Wait</msg> 
+  <msg name="label_hour">h</msg> 
+  <msg name="label_this_week">this week</msg> 
+  <msg name="label_today">today</msg> 
+  <msg name="label_help">Help</msg> 
+  <msg name="label_total">Total</msg> 
+  <msg name="label_login">Login</msg> 
+  <msg name="label_password">Password</msg> 
+  <msg name="label_helpmsg">Tip</msg>
+  <msg name="label_helpmsg_val">Click on title for help</msg>  
+  <msg name="message1">Edit your gadget settings.</msg> 
+  <msg name="message2">Error occurred in server response.</msg> 
+  <msg name="footer_link1_name">More from Anuko</msg> 
+  <msg name="footer_link2_name">Visit our site</msg> 
+</messagebundle> 
