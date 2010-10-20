@@ -1,0 +1,14 @@
+Source: wrtimetracker
+Section: web
+Priority: extra
+Maintainer: Martin Ellis <martin@ellis.name>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.8.3
+Homepage: http://wrconsulting.com/cms/wrtimetracker/
+
+Package: wrtimetracker
+Architecture: all
+Depends: php5-mysql, php5-gd, ${misc:Depends}
+Description: Time tracking system with a web interface
+ WR Time Tracker is a simple, easy to use, open source, web-based time tracking
+ system.

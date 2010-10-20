@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+#export DH_VERBOSE=1
+#%:
+#	dh  $@
+
+clean:
+	dh clean
+build:
+binary: binary-arch binary-indep
+binary-arch:
+binary-indep:
+	dh_testroot
+	dh_prep
+	dh_installdirs
+	dh_auto_install
+	dh_install --sourcedir="$(CURDIR)" \
+	  --list-missing -Xdebian -X.git \
+	  -Xlicense.txt \
+	  -Xmaint_db.sh \
+	  $(shell sed 's/^/-X/' debian/docs | tr '\n' ' ')
+	dh_installdocs
+	dh_installchangelogs
+	dh_installdebconf
+	dh_lintian
+	dh_compress
+	dh_fixperms
+	dh_shlibdeps
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb

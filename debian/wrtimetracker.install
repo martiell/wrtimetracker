@@ -1,0 +1,9 @@
+*.php     usr/share/wrtimetracker
+*.png     usr/share/wrtimetracker
+*.css     usr/share/wrtimetracker
+*.xml     usr/share/wrtimetracker
+js        usr/share/wrtimetracker
+images    usr/share/wrtimetracker
+gadget    usr/share/wrtimetracker
+WEB-INF   usr/share/wrtimetracker
+.htaccess usr/share/wrtimetracker
